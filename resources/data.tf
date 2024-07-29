@@ -12,6 +12,6 @@ variable "subnet2" {
 variable "security_group_id" {
   default = "sg-09577d329cf16367a"
 }
-data "aws_security_groups" "ig" {
+data "aws_security_group" "ig" {
   id = var.security_group_id
 }
