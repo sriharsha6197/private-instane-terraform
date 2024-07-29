@@ -43,7 +43,10 @@ resource "aws_route_table_association" "internet" {
   subnet_id      = aws_subnet.subnet1.id
   route_table_id = aws_route_table.internet_route_table.id
 }
-
+resource "aws_route_table_association" "private" {
+  subnet_id = aws_subnet.subnet2.id
+  route_table_id = aws_route_table.private_route_table.id
+}
 resource "aws_security_group" "allow-all-sg" {
   name        = "allow-all-sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
