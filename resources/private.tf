@@ -36,7 +36,7 @@ resource "aws_route_table_association" "internet" {
   route_table_id = aws_route_table.internet_route_table.id
 }
 
-resource "aws_security_group" "sg-allow-all" {
+resource "aws_security_group" "allow-all-sg" {
   name        = "sg-allow-all"
   description = "Allow TLS inbound traffic and all outbound traffic"
   vpc_id      = aws_vpc.vpc_2.id
