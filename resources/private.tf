@@ -81,3 +81,9 @@ resource "aws_nat_gateway" "example" {
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.igw2]
 }
+resource "aws_instance" "private_instance" {
+  ami = data.aws_ami.ami.id
+  subnet_id = var.subnet2
+  vpc_security_group_ids = [data.aws_security_groups.ig_sg.id]
+  associate_public_ip_address = false
+}
