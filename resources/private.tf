@@ -91,7 +91,7 @@ resource "aws_vpc_peering_connection" "foo" {
   peer_owner_id = data.aws_caller_identity.current.account_id
   peer_vpc_id   = data.aws_vpc.acceper_vpc.id
   vpc_id        = data.aws_vpc.requester_vpc.id
-  peer_region = "us-east-1"
+  auto_accept = true
   tags = {
     Name = "VPC Peering between namelessvpc() and vpc1"
   }
