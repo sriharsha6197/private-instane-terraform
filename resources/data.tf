@@ -15,3 +15,15 @@ variable "security_group_id" {
 data "aws_security_group" "ig" {
   id = var.security_group_id
 }
+variable "requester_vpc" {
+  default = "vpc-0683db6837f2e22a0"
+}
+data "aws_vpc" "requester_vpc" {
+  id = var.requester_vpc
+}
+variable "acceper_vpc" {
+  default = "vpc-061278f187529b139"
+}
+data "aws_vpc" "acceper_vpc" {
+  id = var.acceper_vpc
+}

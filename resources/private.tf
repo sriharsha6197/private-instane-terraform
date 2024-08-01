@@ -85,3 +85,22 @@ resource "aws_instance" "private_instance_1" {
   subnet_id = data.aws_subnet.subnet2.id
   security_groups = [data.aws_security_group.ig.id]
 }
+
+###################VPC_PEERING#################
+resource "aws_vpc_peering_connection" "foo" {
+  peer_owner_id = data.aws_ami.ami.owner_id
+  peer_vpc_id   = data.aws_vpc.acceper_vpc.id
+  vpc_id        = data.aws_vpc.requester_vpc.id
+  auto_accept   = true
+  peer_region = "us-east-1"
+  tags = {
+    Name = "VPC Peering between namelessvpc() and vpc1"
+  }
+  accepter {
+    allow_remote_vpc_dns_resolution = true
+  }
+
+  requester {
+    allow_remote_vpc_dns_resolution = true
+  }
+}
