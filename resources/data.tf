@@ -27,3 +27,6 @@ variable "acceper_vpc" {
 data "aws_vpc" "acceper_vpc" {
   id = var.acceper_vpc
 }
+data "aws_caller_identity" "current" {
+  
+}

@@ -88,7 +88,7 @@ resource "aws_instance" "private_instance_1" {
 
 ###################VPC_PEERING#################
 resource "aws_vpc_peering_connection" "foo" {
-  peer_owner_id = data.aws_ami.ami.owner_id
+  peer_owner_id = data.aws_caller_identity.current.account_id
   peer_vpc_id   = data.aws_vpc.acceper_vpc.id
   vpc_id        = data.aws_vpc.requester_vpc.id
   peer_region = "us-east-1"
