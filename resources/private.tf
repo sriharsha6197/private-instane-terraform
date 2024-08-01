@@ -34,16 +34,20 @@ resource "aws_route_table" "internet-route-table" {
     Name = "internet-route-table"
   }
 }
-# resource "aws_route_table" "private-route-table" {
-#   vpc_id = aws_vpc.vpc-1.id
-#   route {
-#     cidr_block = "0.0.0.0/0"
-#     gateway_id = 
-#   }
-# }
+resource "aws_route_table" "private-route-table" {
+  vpc_id = aws_vpc.vpc-1.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.nat-gw.id
+  }
+}
 resource "aws_route_table_association" "a" {
   subnet_id      = aws_subnet.subnet1.id
   route_table_id = aws_route_table.internet-route-table.id
+}
+resource "aws_route_table_association" "b" {
+  subnet_id = data.aws_subnet.subnet2.id
+  route_table_id = aws_route_table.private-route-table.id
 }
 resource "aws_security_group" "allow-all-sg" {
   name        = "allow-all-sg"
@@ -74,4 +78,10 @@ resource "aws_nat_gateway" "nat-gw" {
     Name = "nat-gw"
   }
   depends_on = [aws_internet_gateway.igw]
+}
+resource "aws_instance" "private_instance_1" {
+  ami = data.aws_ami.ami.id
+  instance_type = "t3.micro"
+  subnet_id = data.aws_subnet.subnet2.id
+  security_groups = [data.aws_security_group.ig.id]
 }
